@@ -1,0 +1,196 @@
+CLASS 1 -
+
+BDD - behavioral driven development -
+	Given
+	When
+	And
+	Then
+We use BDD scenarios - to give a clear understanding to other colleagues in the team
+
+
+To write the BDD scenarios in cucumber - we use special type of file
+
+User story 12345 - Search an employee
+
+Search by id
+Given user navigates to HRMS application
+When user enters valid username and password
+And user clicks on login button
+Then user navigates to dashboard page
+When user clicks on PIM option
+And user clicks on employee information button
+When user enters employee id
+And user clicks on search button
+Then user see employee information is displayed
+
+Search by name
+Given user navigates to HRMS application
+When user enters valid username and password
+And user clicks on login button
+Then user navigates to dashboard page
+When user clicks on PIM option
+And user clicks on employee information button
+When user enters valid employee name
+And user clicks on search button
+Then user see employee information is displayed
+
+CLASS 2 -
+
+Recap -
+      BDD - It allows us to write scenarios in gherkin language
+
+      Feature - User story
+      Scenario - Test case - every test case will be considered as scenario in BDD
+      Given - pre-requisite/pre-condition
+      When - perform actions
+      Then - Expected output
+      And - Supporting tag
+
+      Step definition - Cucumber provides you the snippet of step definition
+      In step definition, we write the code to perform actions which has been written in
+      the BDD statement
+
+      To execute all the feature files from one class, we need runner class
+
+To keep everything organised we need framework -
+Framework allows you to write simplified and organised code and
+it provides folder to structure which is easily understandable
+
+In framework we have 2 separate branches for
+Java -  In java, we write all java classes
+Non - Java - In non-java, we write non java part such as features, files etc
+steps package - for all step definitions
+runners package - for all runner classes
+config directory - for all config files
+features directory - for all feature files
+
+CLASS 3 -
+    Recap - BDD - Behavioral driven development
+    because the explanation part was available in diagram
+
+CLASS 4 -
+    Recap -
+    Runner class - Cucumber options in runner class
+    features - to run the feature file, we provide a path to its repository
+    glue - the path of our step definitions package
+    dryRun - if we set it to true, it stops actual execution and scans all the steps quickly
+    and provide us missing step definition
+    monochrome - to remove irrelavant information from the console
+    plugin - pretty - to print the steps in the console
+    tags - to group the scenario for specific type of execution
+
+
+POM - page object model - it is a design pattern
+
+it allows QA's to keep object repository -
+in simple language, QA's write all the locators of the page in respective class
+
+LoginPage -
+DashboardPage -
+
+CLASS 5 -
+  Recap - runner class - to run our test cases as per the requirement
+                                to generate missing steps
+                                to print the steps into the console
+                                to generate the report
+
+        Page object model - to have organised code and easy to maintain structure
+        according to it, we create separate class (page) according to the
+        screens available in the application and keep all the locators of this page
+        in it
+
+Hooks - we write pre condition and post condition using hooks in cucumber
+    @Before - pre condition needs to be mentioned in this
+    @After - post condition needs to be mentioned in this
+
+Rules - Hooks class must be created inside steps package
+
+Background - it is applicable only for one feature file
+             it means for every feature file background will be different
+             steps which are common among all the scenarios of that featur file
+             will be taken into background but make sure the flow is not broken.
+             if the flow breaks, then we cannot take steps in background after that
+
+
+Hooks VS background
+
+Hooks are applicable for whole project (for all the feature files)
+Background is applicable for one feature file and varies from file to file
+First Hooks execute then background execute then scenario execute
+
+CLASS 6 -
+    Recap -
+        Page object model with page initializer class
+        in this initializer class, we initialize all the objects of page classes and
+        call the method in common methods class in openbrowser method
+
+    We created a collection point in steps classes -
+    -- methods call from common method, locators call from respective page classes using
+       object of that class
+
+    Background - same steps in feature file among all the scenarios should be a part of it
+    Hooks - Pre condition and Post condition for the entire project
+    here we use 2 hooks - @Before and @After
+
+    Parameterization testing
+    -- we can one add employee using feature file - 'instead of passing hardcoded data,
+    we pass values inside the scenario such as "abc" , "xyz" etc'
+
+    -- to increase the scope of testing, we use data driven testing concept
+    instead of scenario, we use scenario outline with examples table
+    -- in examples table, we pass multiple data sets using keys and values
+
+
+Data table -
+     it allows us to pass multiple sets of data without executing background
+
+Outline - Examples table - hooks and background execute every time as per the data set
+Scenario - Data table - hooks and background execute just one time
+
+Working with excel
+.xls - HSSF
+.xlsx - XSSF
+
+CLASS 7 -
+ Recap - parameters passing for adding the employee
+   -- earlier approach was - hardcoded data
+   -- passing one set of data from feature file
+   -- scenario outline - examples table (for passing multiple data sets)
+   -- data table - hooks, background execute one time for multiple data sets
+   -- excel - to pass large volume of data
+
+cucumber accepts array of byte for screenshots
+when we generate any report, this should be under target folder
+
+how to open the report -
+right click - open in - browser - chrome
+
+CLASS 8 -
+ Recap -
+    screenshot method - in cucumber it accept array of byte
+    to get the unique screenshot name, we have implemented timestamp method
+    we used Scenario class of cucumber to get the details  of execution
+    to generate report - we use html plugin from runner class
+    reports always generate in target folder
+    we execute our code from pom.xml file, to achieve this we have used
+    maven surefire plugin
+
+    maven cucumber reporting plugin we use to get more detailed and colorful report
+
+Log files - when we execute our code, we need to sharpen our debugging skills
+          to have quick information about every step of execution, we need messages in the
+          form of report.
+          To get the details added by us, we need to create log files.
+          To create this log file, we use log4j concept
+
+maven lifecycle -
+        compile - source code converts into binary code
+        package - code will be packaged into jar files
+        install - jars will be installed to local repo .m2
+        deploy - here jars will go to remote repo
+        test - code will be tested in this lifecycle
+        clean - this will clean your target folder
+
+
+        when you run test -
+        this will execute compile - install - deploye - test
